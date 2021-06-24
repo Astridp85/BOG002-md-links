@@ -3,22 +3,21 @@
 const fs = require('fs');
 const path = require('path');
 const marked = require('marked');
-const Filehound = require ('filehound');
+// const Filehound = require ('filehound');
 
-// const fecth = require('node-fetch');
+const fetch = require('node-fetch');
 
 
-// const renderer = new  marked.Renderer();
 
 // Validar si la ruta existe 
 const fileExist = (file) => (fs.existsSync(file));
 // console.log (fileExist('./Prueba2.md'));
 
 // validar ruta absoluta o si no convertirla
-const validateAbsolute = (file)=> ((path.isAbsolute(file)) ? file : path.resolve(file));
+const validateToabsolute = (file)=> ((path.isAbsolute(file)) ? file : path.resolve(file));
 
-// console.log (validateAbsolute('./Prueba2.md'));
-// console.log (validateAbsolute('./Prueba.txt'));
+// console.log (validateToabsolute('./Prueba2.md'));
+// console.log (validateToabsolute('./Prueba.txt'));
 
 // Verificar si es un archivo 
 const validFile = (file) => fs.statSync(file).isFile();
@@ -114,55 +113,87 @@ const listDirectoryFiles = (route, fileDirectorio) => {
 //pero el requerimiento pide href ,text y file(ruta)
 // .map() crea un nuevo array con los  resultados de la llamada a la función
 
-const newData = (ruta, data) => {
-  const links = getLinks(data);
+// const newData = (ruta, data) => {
+//   const links = getallLinks(data);
 
-  return links.map(link => {
-    return {
-      href: link.href,
-      text: link.text,
-      file: ruta
-    };
-  
-  });
- 
-};
-console.log(newData('./Prueba2.md'));
-
-
-//validando extensión de archivos md
-
-// const validationExtension = (path) => {
-//   return path.toLowerCase().endsWith('.md');
-// };
-// console.log(validationExtension('./Prueba.txt'));
-// console.log(validationExtension('./Prueba2.md'));
-// const mdLinks = path => {
-//   return new Promise((resolve, reject) => {
-//     const absolutePath = pathToabsolute(path);
-
-//     validPath(absolutePath)
-//       .then(type => {
-//         if (type === 'File') {
-//           if (!validationExtension(absolutePath)) {
-//             reject(new Error('Esta extensión de archivo no es válida'));
-//             return;
-//           }
-
-//           readFile(absolutePath)
-//             .then(data => {
-//               resolve(newData(absolutePath, data));
-//             }).catch(err => {
-//               reject(err);
-//               return;
-//             });
-           
-//         }
-      
-//       });
-//     });
+//   return links.map(link => {
+//     return {
+//       href: link.href,
+//       text: link.text,
+//       file: ruta
 //     };
-              
+  
+//   });
+ 
+// };
+// console.log(newData('./Prueba2.md'));
+
+const validateOptions = (arrayAllLinks) => {
+  const linksValid = arrayAllLinks.map((link) => fetch (link.href)
+
+  .then ((res)=> ({
+    href:link.href,
+    text: link.text,
+    file: link.file,
+    status: res.status,
+    massage: res.statusText,
+  }))
+  .catch (() => ({
+    href:link.href,
+    text: link.text,
+    file: link.file,
+    status: 'Error',
+    massage: 'fail',
+  })));
+  // console.log (Promise.all(linksValid));
+  // console.log (arrayAllLinks)
+  return Promise.all(linksValid);
+};
+const arrLink = [{
+  file: 'readme.md',
+  href: 'http://google.com',
+  text: 'hola',
+},
+{
+  file: 'Prueba2.md',
+  href: 'http:/Facebook.com',
+  text: 'Hello'
+  
+}]
+
+validateOptions(arrLink).then ((res)=>{
+
+console.log (res);
+})
+
+
+
+// Función mdLinks
+
+// const  mdLinks = (path, options) => new Promise ((resolve, rejects) => {
+//   // Primero verificamos si el path existe
+//   if (fileExist (path) === true){
+//     resolve('Esta ruta si existe');
+//     // Segundo se verifica si es absoluta
+  
+//     const pathAbsolute = validateToabsolute(path);
+//     // se verifica si es archivo
+//     if (validFile(pathAbsolute)=== true){
+//       const pathExt =  getExtfile (pathAbsolute);
+
+//       // validando extensión
+//       if (validationExtension(pathExt)=== true){
+//         resolve ('El archivo si es markdown (.md)');
+//         // leyendo archivos y extrayendo links
+
+//       }
+//     }
+//   }
+
+// });
+
+
+
 
 
 
