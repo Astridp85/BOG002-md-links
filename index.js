@@ -6,45 +6,49 @@ const marked = require('marked');
 // const Filehound = require ('filehound');
 
 const fetch = require('node-fetch');
+const chalk = require ('chalk');
+const { resolve } = require('path');
 
 
 
 // Validar si la ruta existe 
 const fileExist = (file) => (fs.existsSync(file));
-// console.log (fileExist('./Prueba2.md'));
+// console.log (chalk.red(fileExist('./Prueba2.md')));
+// console.log(fileExist('./mentira.js'));
 
 // validar ruta absoluta o si no convertirla
 const validateToabsolute = (file)=> ((path.isAbsolute(file)) ? file : path.resolve(file));
 
-// console.log (validateToabsolute('./Prueba2.md'));
-// console.log (validateToabsolute('./Prueba.txt'));
+// console.log (chalk.blue(validateToabsolute('./Prueba2.md')));
+// console.log (chalk.yellow(validateToabsolute('./Prueba.txt')));
+// console.log (validateToabsolute('C:\Users\Laboratoria\OneDrive\Escritorio\Proyectos Laboratoria\BOG002-md-links\index.js'));
 
 // Verificar si es un archivo 
 const validFile = (file) => fs.statSync(file).isFile();
-// console.log (validFile('./Prueba2.md'));
+// console.log (chalk.red(validFile('./Prueba2.md')));
 
 // verificar si es un directorio
 const validDirectory = (file) => fs.statSync(file).isDirectory();
-// console.log (validDirectory('./Prueba2.md'));
-// console.log (validDirectory('./node_modules'));
+// console.log (chalk.magenta(validDirectory('./Prueba2.md')));
+// console.log (chalk.bgWhite(validDirectory('./node_modules')));
 
 // Obtener la extensión del archivo
 const getExtfile = (file) => path.extname(file);
-// console.log(getExtfile('./Prueba2.md'));
-// console.log (validateAbsolute('./Prueba.txt'));
+// console.log(chalk.greenBright(getExtfile('./Prueba2.md')));
+// console.log (chalk.magenta(getExtfile('./Prueba.txt')));
 
 //validando extensión de archivos md
 const validationExtension = (path) => {
     return path.toLowerCase().endsWith('.md');
   };
-  // console.log(validationExtension('./Prueba.txt'));
-  // console.log(validationExtension('./Prueba2.md'));
+  // console.log(chalk.red(validationExtension('./Prueba.txt')));
+  // console.log(chalk.blue(validationExtension('./Prueba2.md')));
 
   // Leyendo los archivos
 // //utf lenguaje humano porque entrega solo números
   const readFile = (file) => fs.readFileSync(file,'utf-8');
-  // console.log (readFile('./Prueba2.md'));
-  // console.log (readFile('./Prueba.txt'));
+  // console.log (chalk.yellow(readFile('./Prueba2.md')));
+  // console.log (chalk.blueBright(readFile('./Prueba.txt')));
 
   // Función que me ayuda a obtener links de un archivo con extensión md
 // usando marked extrayendo el href, título y el texto 
@@ -53,7 +57,7 @@ const getLinks = (ruta, arraysLinksFile) => {
 
   // se crea nueva instancia con new
   const renderer = new marked.Renderer();
-     //.link es un metodo
+     //.link es un metodo 
   renderer.link = (href, title, text) => {
     if (href.includes('http')){
       arraysLinksFile.push({
@@ -78,7 +82,7 @@ const getallLinks = (arrayFiles) => {
   }
   return arraysLinksFile;
 };
-// console.log (getallLinks('./README.md'));
+// console.log (getallLinks('./Prueba2.md'));
 
 
 // Leer Directorio y guardar archivos .md en un array
@@ -104,34 +108,16 @@ const listDirectoryFiles = (route, fileDirectorio) => {
   return (arrayOfffile);
  
 }
-// console.log (listDirectoryFiles('./node_modules'));
+// console.log (chalk.yellow(listDirectoryFiles('./node_modules')));
 
 
 
-// Función para crear data  href,text file o ruta
-//en marked obtenemos  href , title y text
-//pero el requerimiento pide href ,text y file(ruta)
-// .map() crea un nuevo array con los  resultados de la llamada a la función
-
-// const newData = (ruta, data) => {
-//   const links = getallLinks(data);
-
-//   return links.map(link => {
-//     return {
-//       href: link.href,
-//       text: link.text,
-//       file: ruta
-//     };
-  
-//   });
- 
-// };
-// console.log(newData('./Prueba2.md'));
 
 const validateOptions = (arrayAllLinks) => {
   const linksValid = arrayAllLinks.map((link) => fetch (link.href)
 
-  .then ((res)=> ({
+
+.then ((res)=> ({
     href:link.href,
     text: link.text,
     file: link.file,
@@ -145,8 +131,7 @@ const validateOptions = (arrayAllLinks) => {
     status: 'Error',
     massage: 'fail',
   })));
-  // console.log (Promise.all(linksValid));
-  // console.log (arrayAllLinks)
+
   return Promise.all(linksValid);
 };
 const arrLink = [{
@@ -161,36 +146,36 @@ const arrLink = [{
   
 }]
 
-validateOptions(arrLink).then ((res)=>{
+validateOptions(arrLink).then ((result)=>{
+  console.log (result);
 
-console.log (res);
 })
 
+module.exports = {
+  fileExist,
+  validateToabsolute,
+  validFile,
+  validDirectory,
+  getExtfile,
+  validationExtension,
+  readFile,
+  getallLinks,
+ 
+};
 
+//   .then ((result)=> {
+//    const statusLinksOk = {...link, status: result.status, message:result.statusText}
+//     resolve (statusLinksOk)
+//   })
+// .catch (error => {
+//   const statusLinkFail = {...link, status:'fail', message: error.errno}
+//   resolve (statusLinkFail);
 
-// Función mdLinks
+// }))
 
-// const  mdLinks = (path, options) => new Promise ((resolve, rejects) => {
-//   // Primero verificamos si el path existe
-//   if (fileExist (path) === true){
-//     resolve('Esta ruta si existe');
-//     // Segundo se verifica si es absoluta
-  
-//     const pathAbsolute = validateToabsolute(path);
-//     // se verifica si es archivo
-//     if (validFile(pathAbsolute)=== true){
-//       const pathExt =  getExtfile (pathAbsolute);
+// return linksValid
+// };
 
-//       // validando extensión
-//       if (validationExtension(pathExt)=== true){
-//         resolve ('El archivo si es markdown (.md)');
-//         // leyendo archivos y extrayendo links
-
-//       }
-//     }
-//   }
-
-// });
 
 
 
