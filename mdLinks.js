@@ -1,37 +1,27 @@
 
-const {
-  fileExist,
-  validateToabsolute,
-  validFile,
-  getExtfile,
-  validationExtension,
-  getallLinks,
-  listDirectoryFiles,
-  validateOptions,
-
-} = require('./index.js');
+const index = require('./index.js');
 
 // Función mdLinks
 
 const mdLinks = (path, options) => new Promise((resolve, reject) => {
   // Primero verificamos si el path existe
-  if (fileExist(path) === true) {
+  if (index.fileExist(path) === true) {
     // resolve('Esta ruta si existe');
     // Segundo se verifica si es absoluta
-    const pathAbsolute = validateToabsolute(path);
+    const pathAbsolute = index.validateToabsolute(path);
     // se verifica si es archivo
-    if (validFile(pathAbsolute) === true) {
-      const pathExt = getExtfile(pathAbsolute);
+    if (index.validFile(pathAbsolute) === true) {
+      const pathExt = index.getExtfile(pathAbsolute);
 
       // validando extensión
-      if (validationExtension(pathExt) === true) {
+      if (index.validationExtension(pathExt) === true) {
         // resolve('El archivo si es markdown (.md)');
         // leyendo archivos y extrayendo links
-        const allLinks = getallLinks(pathAbsolute);
+        const allLinks = index.getallLinks(pathAbsolute);
 
         if (options) {
           if (options.validate === true) {
-            resolve(validateOptions(allLinks));
+            resolve(index.validateOptions(allLinks));
           } else {
             resolve(allLinks);
           }
@@ -42,14 +32,14 @@ const mdLinks = (path, options) => new Promise((resolve, reject) => {
         reject('Esteno es un archivo .md');
       }
     } else {//  Leer el directorio y guardar los archivos en un array.
-      const allFilesmd = listDirectoryFiles(pathAbsolute);
+      const allFilesmd = index.listDirectoryFiles(pathAbsolute);
       // console.log(allFilesmd)
       if (allFilesmd.length > 0) {
         //Se extrae los links del directorio
-        const allLinks = getallLinks(allFilesmd);
+        const allLinks = index.getallLinks(allFilesmd);
         if (options) {
           if (options.validate === true) {;
-          resolve(validateOptions(allLinks));
+          resolve(index.validateOptions(allLinks));
         } else {
           resolve(allLinks);
         }
@@ -72,3 +62,4 @@ mdLinks('Prueba2.md', {validate:true, stats:true})
 })
 .catch(console.error);
 
+// modulo.export = {mdLinks};
