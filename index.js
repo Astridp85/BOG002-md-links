@@ -61,12 +61,12 @@ const getLinks = (ruta, arraysLinksFile) => {
   // se crea nueva instancia con new
   const renderer = new marked.Renderer();
      //.link es un metodo 
-  renderer.link = (href, title, text) => {
+  renderer.link = (href, _title, text) => {
     if (href.includes('http')){
       arraysLinksFile.push({
         href,
-        title,
         text,
+        file:ruta,
       })
     }
   }

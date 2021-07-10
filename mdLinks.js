@@ -65,8 +65,10 @@ const mdLinks = (path, options) => new Promise((resolve, reject) => {
   reject('No Existe la ruta');
 }
 });
-mdLinks('C:\Users\Laboratoria\OneDrive\Escritorio\Proyectos Laboratoria\BOG002-md-links\Prueba2.md')
-mdLinks('Prueba2.md')
-.then(console.log)
-.catch(console.log)
+// mdLinks('C:\Users\Laboratoria\OneDrive\Escritorio\Proyectos Laboratoria\BOG002-md-links\Prueba2.md')
+mdLinks('Prueba2.md', {validate:true, stats:true})
+.then((links)=>{
+  console.log (links)
+})
+.catch(console.error);
 
