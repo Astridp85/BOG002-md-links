@@ -38,28 +38,29 @@ const mdLinks = (path, options) => new Promise((resolve, reject) => {
         //Se extrae los links del directorio
         const allLinks = index.getallLinks(allFilesmd);
         if (options) {
-          if (options.validate === true) {;
-          resolve(index.validateOptions(allLinks));
+          if (options.validate === true) {
+            ;
+            resolve(index.validateOptions(allLinks));
+          } else {
+            resolve(allLinks);
+          }
         } else {
           resolve(allLinks);
         }
       } else {
-        resolve(allLinks);
+        reject('No Existe ningun archivo .md en el directorio');
+        // reject(new Error('No Existe ningun archivo .md en el directorio'));
       }
-    } else {
-      reject('No Existe ningun archivo .md en el directorio');
-      // reject(new Error('No Existe ningun archivo .md en el directorio'));
     }
-    }
-} else {
-  reject('No Existe la ruta');
-}
+  } else {
+    reject('No Existe la ruta');
+  }
 });
 
-mdLinks('./Prueba2.md', {validate:true})
-.then((links)=>{
-  console.log (links)
-})
-.catch(console.error);
+mdLinks('C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md', { validate: true })
+  .then((links) => {
+    console.log(links)
+  })
+  .catch(console.error);
 
 // modulo.export = {mdLinks};

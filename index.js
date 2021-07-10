@@ -8,9 +8,8 @@ const marked = require('marked');
 // const Filehound = require ('filehound');
 
 const fetch = require('node-fetch');
-const chalk = require ('chalk');
-const { resolve } = require('path');
-const { rejects } = require('assert');
+const chalk = require('chalk');
+
 
 
 
@@ -20,7 +19,7 @@ const fileExist = (file) => (fs.existsSync(file));
 // console.log(fileExist('./mentira.js'));
 
 // validar ruta absoluta o si no convertirla
-const validateToabsolute = (file)=> ((path.isAbsolute(file)) ? file : path.resolve(file));
+const validateToabsolute = (file) => ((path.isAbsolute(file)) ? file : path.resolve(file));
 
 // console.log (chalk.blue(validateToabsolute('./Prueba2.md')));
 // console.log (chalk.yellow(validateToabsolute('./Prueba.txt')));
@@ -42,46 +41,48 @@ const getExtfile = (file) => path.extname(file);
 
 //validando extensión de archivos md
 const validationExtension = (path) => {
-    return path.toLowerCase().endsWith('.md');
-  };
-  // console.log(chalk.red(validationExtension('./Prueba.txt')));
-  // console.log(chalk.blue(validationExtension('./Prueba2.md')));
+  return path.toLowerCase().endsWith('.md');
+};
+// console.log(chalk.red(validationExtension('./Prueba.txt')));
+// console.log(chalk.blue(validationExtension('./Prueba2.md')));
 
-  // Leyendo los archivos
+// Leyendo los archivos
 // //utf lenguaje humano porque entrega solo números
-  const readFile = (file) => fs.readFileSync(file,'utf-8');
-  // console.log (typeof readFile);
-  // console.log (chalk.yellow(readFile('./Prueba2.md')));
-  // console.log (chalk.blueBright(readFile('./Prueba.txt')));
+const readFile = (file) => fs.readFileSync(file, 'utf-8');
+// console.log (typeof readFile);
+// console.log (chalk.yellow(readFile('./Prueba2.md')));
+// console.log (chalk.blueBright(readFile('./Prueba.txt')));
 
-  // Función que me ayuda a obtener links de un archivo con extensión md
+// Función que me ayuda a obtener links de un archivo con extensión md
 // usando marked extrayendo el href, título y el texto 
 
 const getLinks = (ruta, arraysLinksFile) => {
 
   // se crea nueva instancia con new
   const renderer = new marked.Renderer();
-     //.link es un metodo 
+  //.link es un metodo 
   renderer.link = (href, _title, text) => {
-    if (href.includes('http')){
+    if (href.includes('http')) {
       arraysLinksFile.push({
         href,
         text,
-        file:ruta,
+        file: ruta,
       })
     }
   }
   marked(readFile(ruta), { renderer });
 
+
 };
+// console.log (typeof getLinks);
 
 
 // extraer Links
 const getallLinks = (arrayFiles) => {
   const arraysLinksFile = [];
-  if (typeof (arrayFiles) === 'object'){
+  if (typeof (arrayFiles) === 'object') {
     arrayFiles.forEach((arrayFiles) => getLinks(arrayFiles, arraysLinksFile));
-  }else {
+  } else {
     getLinks(arrayFiles, arraysLinksFile);
   }
   return arraysLinksFile;
@@ -95,22 +96,22 @@ const listDirectoryFiles = (route, fileDirectorio) => {
   const files = fs.readdirSync(route);
 
   let arrayOfffile = fileDirectorio || [];
-  files.forEach((file)=>{
+  files.forEach((file) => {
     const nextPath = path.join(route, file);
     //validando directorio 
-    if (validDirectory(nextPath)=== true){
-      arrayOfffile = listDirectoryFiles(nextPath,arrayOfffile);
-    }else {
-      const pathExt =  getExtfile(nextPath);
+    if (validDirectory(nextPath) === true) {
+      arrayOfffile = listDirectoryFiles(nextPath, arrayOfffile);
+    } else {
+      const pathExt = getExtfile(nextPath);
 
-      if (validationExtension(pathExt)=== true) {
+      if (validationExtension(pathExt) === true) {
         arrayOfffile.push(nextPath);
       }
-   
+
     }
   });
   return arrayOfffile;
- 
+
 }
 // console.log (chalk.yellow(listDirectoryFiles('./node_modules')));
 
@@ -118,22 +119,22 @@ const listDirectoryFiles = (route, fileDirectorio) => {
 
 // Función para extrar la información de los links (Petición Http con fetch)
 const validateOptions = (arrayAllLinks) => {
-  return Promise.all (arrayAllLinks.map(link => {
-    return new Promise ((resolve)=>{
-      fetch (link.href)
-      .then(res=>{
-        link.status = res.statusText;
-        link.code = res.status;
-        resolve (link);
-      })
-      .catch(err=>{
-        // reject (err);
-        if(err){
-          link.status = 'FAIL';
-          link.response = null;
-          resolve (link);
-        }
-      })
+  return Promise.all(arrayAllLinks.map(link => {
+    return new Promise((resolve) => {
+      fetch(link.href)
+        .then(res => {
+          link.status = res.statusText;
+          link.code = res.status;
+          resolve(link);
+        })
+        .catch(err => {
+          // reject (err);
+          if (err) {
+            link.status = 'FAIL';
+            link.response = null;
+            resolve(link);
+          }
+        })
     })
   }))
 }
@@ -146,7 +147,7 @@ const validateOptions = (arrayAllLinks) => {
 //   file: 'Prueba2.md',
 //   href: 'http:/Facebook.com',
 //   text: 'Hello'
-  
+
 // }]
 
 // validateOptions(arrLink).then ((result)=>{
@@ -159,11 +160,13 @@ module.exports = {
   validateToabsolute,
   validFile,
   getExtfile,
+  readFile,
   validationExtension,
+  getLinks,
   getallLinks,
   listDirectoryFiles,
   validateOptions,
- 
+
 };
 
 //   .then ((result)=> {

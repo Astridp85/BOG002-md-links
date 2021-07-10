@@ -3,97 +3,236 @@ const index = require('../index.js');
 // const { TestWatcher } = require('jest');
 fakeArrayLinks = [
   {
-    href: 'https://developer.mozilla.org/es/docs/Learn/JavaScript/Building_blocks/conditionals', 
+    href: 'https://developer.mozilla.org/es/docs/Learn/JavaScript/Building_blocks/conditionals',
     text: '(if-else | switch | operador ternario)',
-    file: './Prueba2.md'
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md',
+
   },
   {
-    href: 'https://developer.mozilla.org/es/docs/Learn/JavaScript/Building_blocks/Functions',    
+    href: 'https://developer.mozilla.org/es/docs/Learn/JavaScript/Building_blocks/Functions',
     text: '(parámetros | argumentos | valor de retorno)',
-    file: './Prueba2.md'
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md',
+
   },
   {
     href: 'https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/',
     text: '(filter | map | sort | reduce)',
-    file: './Prueba2.md'
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md',
+
   },
   {
     href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import',
     text: '<code>import</code>',
-    file: './Prueba2.md'
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md',
+
   },
   {
     href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export',
     text: '<code>export</code>',
-    file: './Prueba2.md'
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md',
+
   },
   {
     href: 'https://developer.mozilla.org/es/docs/Glossary/Callback_function',
     text: 'Uso de callbacks.',
-    file: './Prueba2.md'
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md',
+
   },
   {
     href: 'https://scotch.io/tutorials/javascript-promises-for-dummies#toc-consuming-promises',
     text: 'Consumo de Promesas.',
-    file: './Prueba2.md'
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md',
+
   },
   {
     href: 'https://www.freecodecamp.org/news/how-to-write-a-javascript-promise-4ed8d44292b8/',
     text: 'Creación de Promesas.',
-    file: './Prueba2.md'
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md',
+
   },
   {
     href: 'https://nodejs.org/api/fs.html',
     text: 'fs',
-    file: './Prueba2.md'
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md',
+
   },
   {
     href: 'https://nodejs.org/api/path.html',
     text: 'path',
-    file: './Prueba2.md'
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md',
+
   },
-  { href: 'https://www.npmjs.com/', text: 'npm', file: './Prueba2.md' },
+  {
+    href: 'https://www.npmjs.com/',
+    text: 'npm',
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md',
+
+  },
   {
     href: 'https://nodejs.org/docs/latest-v0.10.x/api/modules.html',
     text: '(CommonJS)',
-    file: './Prueba2.md'
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md',
+
   },
   {
     href: 'https://docs.npmjs.com/files/package.json',
     text: 'Configuración de package.json.',
-    file: './Prueba2.md'
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md',
+
   },
   {
     href: 'https://docs.npmjs.com/misc/scripts',
     text: 'Configuración de npm-scripts',
-    file: './Prueba2.md'
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md',
+
   },
   {
     href: 'https://jestjs.io/docs/es-ES/getting-started',
     text: 'Testeo unitario.',
-    file: './Prueba2.md'
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md',
+
   },
   {
     href: 'https://jestjs.io/docs/es-ES/asynchronous',
     text: 'Testeo asíncrono.',
-    file: './Prueba2.md'
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md',
+
   },
   {
     href: 'https://jestjs.io/docs/es-ES/manual-cks',
     text: 'Uso de librerias de Mock.',
-    file: './Prueba2.md'
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md',
+
   }
 ]
 
+const fakeFile = [
 
-const dataMD = [
-  'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md',
-  'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\README.md',
-  'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\test\\pruebatest1.md',
-  'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\test\\pruebatest2.md'
-  
+  'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\test\\pruebas\\pruebatest1.md',
+  'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\test\\pruebas\\pruebatest2.md'
+
 ]
-
+const fakeDataoutput = [
+  {
+    href: 'https://developer.mozilla.org/es/docs/Learn/JavaScript/Building_blocks/conditionals',
+    text: '(if-else | switch | operador ternario)',
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md',
+    status: 'OK',
+    code: 200
+  },
+  {
+    href: 'https://developer.mozilla.org/es/docs/Learn/JavaScript/Building_blocks/Functions',
+    text: '(parámetros | argumentos | valor de retorno)',
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md',
+    status: 'OK',
+    code: 200
+  },
+  {
+    href: 'https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/',
+    text: '(filter | map | sort | reduce)',
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md',
+    status: 'OK',
+    code: 200
+  },
+  {
+    href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import',
+    text: '<code>import</code>',
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md',
+    status: 'OK',
+    code: 200
+  },
+  {
+    href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export',
+    text: '<code>export</code>',
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md',
+    status: 'OK',
+    code: 200
+  },
+  {
+    href: 'https://developer.mozilla.org/es/docs/Glossary/Callback_function',
+    text: 'Uso de callbacks.',
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md',
+    status: 'OK',
+    code: 200
+  },
+  {
+    href: 'https://scotch.io/tutorials/javascript-promises-for-dummies#toc-consuming-promises',
+    text: 'Consumo de Promesas.',
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md',
+    status: 'OK',
+    code: 200
+  },
+  {
+    href: 'https://www.freecodecamp.org/news/how-to-write-a-javascript-promise-4ed8d44292b8/',
+    text: 'Creación de Promesas.',
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md',
+    status: 'OK',
+    code: 200
+  },
+  {
+    href: 'https://nodejs.org/api/fs.html',
+    text: 'fs',
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md',
+    status: 'OK',
+    code: 200
+  },
+  {
+    href: 'https://nodejs.org/api/path.html',
+    text: 'path',
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md',
+    status: 'OK',
+    code: 200
+  },
+  {
+    href: 'https://www.npmjs.com/',
+    text: 'npm',
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md',
+    status: 'OK',
+    code: 200
+  },
+  {
+    href: 'https://nodejs.org/docs/latest-v0.10.x/api/modules.html',
+    text: '(CommonJS)',
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md',
+    status: 'OK',
+    code: 200
+  },
+  {
+    href: 'https://docs.npmjs.com/files/package.json',
+    text: 'Configuración de package.json.',
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md',
+    status: 'OK',
+    code: 200
+  },
+  {
+    href: 'https://docs.npmjs.com/misc/scripts',
+    text: 'Configuración de npm-scripts',
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md',
+    status: 'OK',
+    code: 200
+  },
+  {
+    href: 'https://jestjs.io/docs/es-ES/getting-started',
+    text: 'Testeo unitario.',
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md',
+    status: 'OK',
+    code: 200
+  },
+  {
+    href: 'https://jestjs.io/docs/es-ES/asynchronous',
+    text: 'Testeo asíncrono.',
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md',
+    status: 'OK',
+    code: 200
+  },
+  {
+    href: 'https://jestjs.io/docs/es-ES/manual-cks',
+    text: 'Uso de librerias de Mock.',
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md',
+    status: 'Not Found',
+    code: 404
+  }
+]
 // verificar la ruta
 describe(' fileExist', () => {
 
@@ -150,7 +289,50 @@ describe('getallLinks', () => {
   });
 
   it('debería retornar la data de los links', () => {
-    expect(index.getallLinks('./Prueba2.md')).toEqual(fakeArrayLinks);
+    expect(index.getallLinks("C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md")).toEqual(fakeArrayLinks);
   });
- 
+
+});
+// Leer si es directorio 
+describe('listDirectoryFiles', () => {
+  it('debería ser una función', () => {
+    expect(typeof index.listDirectoryFiles).toBe('function');
+  });
+
+  it('debería retornar los archivos .md encontrados en el array de Objetos', () => {
+    expect(index.listDirectoryFiles('C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\test\\pruebas')).toEqual(fakeFile);
+  });
+
+});
+
+// fakeDataoutput
+// Extraer los links getLinks
+describe('getLinks', () => {
+  it('debería ser una función', () => {
+    expect(typeof index.getLinks).toBe('function');
+  });
+
+});
+
+
+// validación si lee los archivos
+describe('readFile', () => {
+  it('debería ser una función', () => {
+    expect(typeof index.readFile).toBe('function');
+  });
+
+});
+// Leer directorios
+describe('validateOptions', () => {
+  it('debería ser una función', () => {
+    expect(typeof index.validateOptions).toBe('function');
+  });
+
+  it('debería retornar array validate ', (done) => {
+    index.validateOptions(fakeArrayLinks)
+      .then((data) => {
+        expect(data).toEqual(fakeDataoutput);
+        done();
+      });
+  });
 });
