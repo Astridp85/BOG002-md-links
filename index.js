@@ -50,6 +50,7 @@ const validationExtension = (path) => {
   // Leyendo los archivos
 // //utf lenguaje humano porque entrega solo números
   const readFile = (file) => fs.readFileSync(file,'utf-8');
+  // console.log (typeof readFile);
   // console.log (chalk.yellow(readFile('./Prueba2.md')));
   // console.log (chalk.blueBright(readFile('./Prueba.txt')));
 

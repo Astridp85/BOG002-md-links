@@ -56,10 +56,10 @@ const mdLinks = (path, options) => new Promise((resolve, reject) => {
 }
 });
 // mdLinks('C:\Users\Laboratoria\OneDrive\Escritorio\Proyectos Laboratoria\BOG002-md-links\Prueba2.md')
-mdLinks('Prueba2.md', {validate:true, stats:true})
-.then((links)=>{
-  console.log (links)
-})
-.catch(console.error);
+// mdLinks('Prueba2.md', {validate:true})
+// .then((links)=>{
+//   console.log (links)
+// })
+// .catch(console.error);
 
 // modulo.export = {mdLinks};
