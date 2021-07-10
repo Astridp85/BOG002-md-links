@@ -1,13 +1,16 @@
 
 // llamado de documenación de node 
+// libreria de node.js que permite interactuar con el sistema de archivos (file system)
 const fs = require('fs');
 const path = require('path');
+// libreria MARKED para crear nuevas instancias en este caso objetos (Links)
 const marked = require('marked');
 // const Filehound = require ('filehound');
 
 const fetch = require('node-fetch');
 const chalk = require ('chalk');
 const { resolve } = require('path');
+const { rejects } = require('assert');
 
 
 
@@ -105,61 +108,60 @@ const listDirectoryFiles = (route, fileDirectorio) => {
    
     }
   });
-  return (arrayOfffile);
+  return arrayOfffile;
  
 }
 // console.log (chalk.yellow(listDirectoryFiles('./node_modules')));
 
 
 
-
+// Función para extrar la información de los links (Petición Http con fetch)
 const validateOptions = (arrayAllLinks) => {
-  const linksValid = arrayAllLinks.map((link) => fetch (link.href)
-
-
-.then ((res)=> ({
-    href:link.href,
-    text: link.text,
-    file: link.file,
-    status: res.status,
-    massage: res.statusText,
+  return Promise.all (arrayAllLinks.map(link => {
+    return new Promise ((resolve)=>{
+      fetch (link.href)
+      .then(res=>{
+        link.status = res.statusText;
+        link.code = res.status;
+        resolve (link);
+      })
+      .catch(err=>{
+        // reject (err);
+        if(err){
+          link.status = 'FAIL';
+          link.response = null;
+          resolve (link);
+        }
+      })
+    })
   }))
-  .catch (() => ({
-    href:link.href,
-    text: link.text,
-    file: link.file,
-    status: 'Error',
-    massage: 'fail',
-  })));
-
-  return Promise.all(linksValid);
-};
-const arrLink = [{
-  file: 'readme.md',
-  href: 'http://google.com',
-  text: 'hola',
-},
-{
-  file: 'Prueba2.md',
-  href: 'http:/Facebook.com',
-  text: 'Hello'
+}
+// const arrLink = [{
+//   file: 'readme.md',
+//   href: 'http://google.com',
+//   text: 'hola',
+// },
+// {
+//   file: 'Prueba2.md',
+//   href: 'http:/Facebook.com',
+//   text: 'Hello'
   
-}]
+// }]
 
-validateOptions(arrLink).then ((result)=>{
-  console.log (result);
+// validateOptions(arrLink).then ((result)=>{
+//   console.log (result);
 
-})
+// })
 
 module.exports = {
   fileExist,
   validateToabsolute,
   validFile,
-  validDirectory,
   getExtfile,
   validationExtension,
-  readFile,
   getallLinks,
+  listDirectoryFiles,
+  validateOptions,
  
 };
 
