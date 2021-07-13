@@ -39,7 +39,6 @@ const mdLinks = (path, options) => new Promise((resolve, reject) => {
         const allLinks = index.getallLinks(allFilesmd);
         if (options) {
           if (options.validate === true) {
-            ;
             resolve(index.validateOptions(allLinks));
           } else {
             resolve(allLinks);
@@ -57,10 +56,13 @@ const mdLinks = (path, options) => new Promise((resolve, reject) => {
   }
 });
 
-mdLinks('C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md', { validate: true })
-  .then((links) => {
-    console.log(links)
-  })
-  .catch(console.error);
+// mdLinks('./Prueba2.md', { validate: true })
+//   .then((links) => {
+//     console.log(links)
+//   })
+//   .catch(console.error);
 
-// modulo.export = {mdLinks};
+  module.exports = {
+    mdLinks
+    
+  };
