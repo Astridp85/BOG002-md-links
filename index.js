@@ -5,56 +5,47 @@ const fs = require('fs');
 const path = require('path');
 // libreria MARKED para crear nuevas instancias en este caso objetos (Links)
 const marked = require('marked');
-
-
 const fetch = require('node-fetch');
-const chalk = require('chalk');
-
-
 
 
 // Validar si la ruta existe 
 const fileExist = (file) => (fs.existsSync(file));
-// console.log (chalk.red(fileExist('./Prueba2.md')));
-// console.log(fileExist('./mentira.js'));
 
 // validar ruta absoluta o si no convertirla
 const validateToabsolute = (file) => ((path.isAbsolute(file)) ? file : path.resolve(file));
 
-// console.log (chalk.blue(validateToabsolute('./Prueba2.md')));
-// console.log (chalk.yellow(validateToabsolute('./Prueba.txt')));
-// console.log (validateToabsolute('C:\Users\Laboratoria\OneDrive\Escritorio\Proyectos Laboratoria\BOG002-md-links\index.js'));
+
+
+// const validateToabsolute = path => {
+//   return resolve(path);
+// };
 
 // Verificar si es un archivo 
 const validFile = (file) => fs.statSync(file).isFile();
-// console.log (chalk.red(validFile('./Prueba2.md')));
 
 // verificar si es un directorio
 const validDirectory = (file) => fs.statSync(file).isDirectory();
-// console.log (chalk.magenta(validDirectory('./Prueba2.md')));
-// console.log (chalk.bgWhite(validDirectory('./node_modules')));
+
+
 
 // Obtener la extensión del archivo
 const getExtfile = (file) => path.extname(file);
-// console.log(chalk.greenBright(getExtfile('./Prueba2.md')));
-// console.log (chalk.magenta(getExtfile('./Prueba.txt')));
+// console.log (getExtfile('./Prueba.txt'));
 
 //validando extensión de archivos md
 const validationExtension = (path) => {
   return path.toLowerCase().endsWith('.md');
 };
-// console.log(chalk.red(validationExtension('./Prueba.txt')));
-// console.log(chalk.blue(validationExtension('./Prueba2.md')));
+// console.log (validationExtension('./Prueba.txt'));
 
 // Leyendo los archivos
 // //utf lenguaje humano porque entrega solo números
 const readFile = (file) => fs.readFileSync(file, 'utf-8');
-// console.log (typeof readFile);
-// console.log (chalk.yellow(readFile('./Prueba2.md')));
-// console.log (chalk.blueBright(readFile('./Prueba.txt')));
+//
 
 // Función que me ayuda a obtener links de un archivo con extensión md
 // usando marked extrayendo el href, título y el texto 
+// _ es como una especie de variable de omisión, es decir que no será de mucha utilidad o es poco relevante su uso
 
 const getLinks = (ruta, arraysLinksFile) => {
 
@@ -76,7 +67,6 @@ const getLinks = (ruta, arraysLinksFile) => {
 };
 // console.log (typeof getLinks);
 
-
 // extraer Links
 const getallLinks = (arrayFiles) => {
   const arraysLinksFile = [];
@@ -87,8 +77,6 @@ const getallLinks = (arrayFiles) => {
   }
   return arraysLinksFile;
 };
-// console.log (getallLinks('./Prueba2.md'));
-
 
 // Leer Directorio y guardar archivos .md en un array
 
@@ -113,31 +101,35 @@ const listDirectoryFiles = (route, fileDirectorio) => {
   return arrayOfffile;
 
 }
-// console.log (chalk.yellow(listDirectoryFiles('./node_modules')));
 
 
-
-// Función para extrar la información de los links (Petición Http con fetch)
+// Función para extraer la información de los links (Petición Http con fetch)
+//map() crea un nuevo array con los resultados de la llamada a la función indicada 
 const validateOptions = (arrayAllLinks) => {
   return Promise.all(arrayAllLinks.map(link => {
     return new Promise((resolve) => {
       fetch(link.href)
         .then(res => {
-          link.status = res.statusText;
-          link.code = res.status;
-          resolve(link);
-        })
-        .catch(err => {
-          // reject (err);
-          if (err) {
-            link.status = 'FAIL';
-            link.response = null;
+          if (res.status > 400) {
+            link.status = res.status;
+            link.response = "fail";
             resolve(link);
+          } else {
+            link.status = res.status;
+            link.response = res.statusText;
+            resolve(link); 
           }
         })
-    })
-  }))
-}
+        .catch(err => {
+          if(err){
+            link.status = null;
+            link.response = "fail"
+            resolve(link);
+          }
+          });
+        });
+      }));
+    };
 // const arrLink = [{
 //   file: 'readme.md',
 //   href: 'http://google.com',

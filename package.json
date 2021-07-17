@@ -33,5 +33,9 @@
   "devDependencies": {
     "jest": "^27.0.6"
   },
-  "keywords": []
+  "keywords": [
+    "Node.js",
+    "markdown",
+    "links"
+  ]
 }

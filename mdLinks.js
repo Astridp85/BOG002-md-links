@@ -7,8 +7,11 @@ const mdLinks = (path, options) => new Promise((resolve, reject) => {
   // Primero verificamos si el path existe
   if (index.fileExist(path) === true) {
     // resolve('Esta ruta si existe');
-    // Segundo se verifica si es absoluta
+    // Segundo se verifica si es absoluta - convertirla
     const pathAbsolute = index.validateToabsolute(path);
+  
+    // const absolutePath = pathToAbsolute(path); 
+
     // se verifica si es archivo
     if (index.validFile(pathAbsolute) === true) {
       const pathExt = index.getExtfile(pathAbsolute);
@@ -33,16 +36,18 @@ const mdLinks = (path, options) => new Promise((resolve, reject) => {
       }
     } else {//  Leer el directorio y guardar los archivos en un array.
       const allFilesmd = index.listDirectoryFiles(pathAbsolute);
-      // console.log(allFilesmd)
+      
       if (allFilesmd.length > 0) {
         //Se extrae los links del directorio
         const allLinks = index.getallLinks(allFilesmd);
         if (options) {
           if (options.validate === true) {
-            resolve(index.validateOptions(allLinks));
+          resolve(index.validateOptions(allLinks));
+         
           } else {
             resolve(allLinks);
           }
+          
         } else {
           resolve(allLinks);
         }
@@ -56,13 +61,13 @@ const mdLinks = (path, options) => new Promise((resolve, reject) => {
   }
 });
 
-// mdLinks('./Prueba2.md', { validate: true })
+// mdLinks('C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md', { validate: true })
 //   .then((links) => {
 //     console.log(links)
 //   })
 //   .catch(console.error);
+  // C:\\Users\\Laboratoria\\OneDrive\\Escritorio\\Proyectos Laboratoria\\BOG002-md-links\\Prueba2.md'
+module.exports = {
+  mdLinks,
 
-  module.exports = {
-    mdLinks
-    
-  };
+};
